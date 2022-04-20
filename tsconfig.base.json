@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@tp/common/resource/core": ["libs/common/resource/core/src/index.ts"],
+      "@tp/common/resource/equipe": [
+        "libs/common/resource/equipe/src/index.ts"
+      ],
+      "@tp/common/resource/match": ["libs/common/resource/match/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

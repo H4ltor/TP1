@@ -4,6 +4,7 @@
     "common-resource-core": "libs/common/resource/core",
     "common-resource-equipe": "libs/common/resource/equipe",
     "common-resource-match": "libs/common/resource/match",
-    "rest-api": "apps/rest-api"
+    "rest-api": "apps/rest-api",
+    "scrap-task": "apps/scrap-task"
   }
 }

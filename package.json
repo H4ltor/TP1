@@ -14,7 +14,10 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^9.0.3",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/schedule": "^1.1.0",
+    "axios": "^0.26.1",
     "mongoose": "^6.2.7",
+    "node-html-parser": "^5.3.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
     "tslib": "^2.0.0"
@@ -29,6 +32,7 @@
     "@nrwl/nest": "13.9.2",
     "@nrwl/node": "13.9.2",
     "@nrwl/workspace": "13.9.2",
+    "@types/cron": "^1.7.3",
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "~5.10.0",

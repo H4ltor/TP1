@@ -11,7 +11,6 @@ import {
   matchCreateDtoToEntity,
   matchDocumentToDto,
   matchResetDtoToEntity,
-  matchUpdateDtoToEntity
 } from "./match.mapper";
 
 @Injectable()
@@ -38,10 +37,9 @@ export class MatchesService {
       .then(matchDocumentToDto);
   }
 
-  update(dto: MatchUpdateDto): Promise<MatchDto> {
-    const entity = matchUpdateDtoToEntity(dto);
-    return this.model.findByIdAndUpdate(entity.id, entity, { new: true }).exec()
-      .then(matchDocumentToDto);
+  update(id: string, updateBookDto: MatchUpdateDto): Promise<MatchDto> {
+    return this.model.updateOne({ id }, updateBookDto).exec()
+      .then(() => this.findOne(id));
   }
 
   reset(dto: MatchResetDto): Promise<MatchDto> {

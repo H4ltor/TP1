@@ -42,8 +42,8 @@ export class MatchesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: MatchUpdateDto): Promise<MatchDto> {
-    return this.matchesService.update({...dto, id });
+  update(@Param('id') id: string, @Body() updateMatchDto: MatchUpdateDto): Promise<MatchDto> {
+    return this.matchesService.update(id, updateMatchDto);
   }
 
   @Put(':id')

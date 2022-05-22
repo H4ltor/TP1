@@ -21,7 +21,7 @@ const mongoDbUri = `mongodb+srv://${username}:${password}@${host}/${databaseName
     EquipesModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'dist/apps/graphql/schema.gql'),
     }),
     MatchModule,
     EquipeModule,

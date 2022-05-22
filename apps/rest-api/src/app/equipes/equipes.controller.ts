@@ -36,8 +36,8 @@ export class EquipesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: EquipeUpdateDto): Promise<EquipeDto> {
-    return this.equipesService.update({...dto, id });
+  update(@Param('id') id: string, @Body() updateEquipeDto: EquipeUpdateDto): Promise<EquipeDto> {
+    return this.equipesService.update(id, updateEquipeDto);
   }
 
   @Put(':id')

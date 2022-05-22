@@ -1,37 +1,46 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import {MatchEntity} from "../../../../rest-api/src/app/matches/entities/match.entity";
 import {MatchesService} from "../../../../rest-api/src/app/matches/matches.service";
-import {MatchCreateDto, MatchUpdateDto} from "../../../../../libs/common/resource/match/src/lib/match.dto";
+import {MatchCreateDto, MatchDto, MatchUpdateDto} from "../../../../../libs/common/resource/match/src/lib/match.dto";
+import {MatchCreateType, MatchType, MatchUpdateType, RemoveType} from "./match.type";
 
 
-@Resolver(() => MatchEntity)
+@Resolver(() => MatchType)
 export class MatchResolver {
-  constructor(private readonly matchService: MatchesService) {
-  }
+  constructor(private matchService: MatchesService) {}
 
-  @Mutation(() => MatchEntity)
-  createMatch(@Args('createMatchInput') createMatchInput: MatchCreateDto) {
-    return this.matchService.create(createMatchInput);
-  }
-
-  @Query(() => [MatchEntity], { name: 'match' })
-  findAll() {
-    return this.matchService.findAll();
-  }
-
-  @Query(() => MatchEntity, { name: 'match' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  @Query(() => MatchType)
+  match(@Args('id') id: string): Promise<MatchDto> {
     return this.matchService.findOne(id);
   }
 
-  @Mutation(() => MatchEntity)
-  updateMatch(@Args('updateMatchInput') updateMatchInput: MatchUpdateDto) {
-    return this.matchService.update(updateMatchInput.id, updateMatchInput);
+  @Query(() => [MatchType])
+  matches(
+  ) {
+    return this.matchService.findAll();
   }
 
-  @Mutation(() => MatchEntity)
-  removeMatch(@Args('id', { type: () => Int }) id: string) {
-    return this.matchService.remove(id);
+  @Mutation(() => MatchType)
+  createMatch(
+    @Args({ name: 'match', type: () => MatchCreateType }) match: MatchCreateDto
+  ): Promise<MatchDto> {
+    return this.matchService.create(match);
+  }
+
+  @Mutation(() => MatchType)
+  updateMatch(
+    @Args({ name: 'match', type: () => MatchUpdateType })
+      match: MatchUpdateDto
+  ): Promise<MatchDto> {
+    return this.matchService.update(match.id, match);
+  }
+
+  @Mutation(() => RemoveType)
+  deleteMatch(@Args('id') id: string): Promise<RemoveType> {
+    return this.matchService.remove(id).then(() => {
+      return {
+        ok: 'true',
+      };
+    });
   }
 }

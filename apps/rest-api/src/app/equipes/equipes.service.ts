@@ -13,6 +13,7 @@ import {
   equipeResetDtoToEntity,
   equipeUpdateDtoToEntity
 } from "./equipe.mapper";
+import {MatchDto, MatchUpdateDto} from "../../../../../libs/common/resource/match/src/lib/match.dto";
 
 @Injectable()
 export class EquipesService {
@@ -38,10 +39,9 @@ export class EquipesService {
       .then(equipeDocumentToDto);
   }
 
-  update(dto: EquipeUpdateDto): Promise<EquipeDto> {
-    const entity = equipeUpdateDtoToEntity(dto);
-    return this.model.findByIdAndUpdate(entity.id, entity, { new: true }).exec()
-      .then(equipeDocumentToDto);
+  update(id: string, updateBookDto: EquipeUpdateDto): Promise<EquipeDto> {
+    return this.model.updateOne({ id }, updateBookDto).exec()
+      .then(() => this.findOne(id));
   }
 
   reset(dto: EquipeResetDto): Promise<EquipeDto> {

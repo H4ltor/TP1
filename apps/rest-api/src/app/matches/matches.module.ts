@@ -13,5 +13,6 @@ import {MatchEntity, MatchSchema} from "./entities/match.entity";
   ])],
   controllers: [MatchesController],
   providers: [MatchesService],
+  exports: [MatchesService],
 })
 export class MatchesModule {}

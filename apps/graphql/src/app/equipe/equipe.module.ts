@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { EquipeService } from './equipe.service';
 import { EquipeResolver } from './equipe.resolver';
-
+import {EquipesService} from "../../../../rest-api/src/app/equipes/equipes.service";
+import {EquipesModule} from "../../../../rest-api/src/app/equipes/equipes.module";
 @Module({
-  providers: [EquipeResolver, EquipeService],
+  imports: [EquipesModule],
+  //providers: [EquipeResolver],
 })
 export class EquipeModule {}

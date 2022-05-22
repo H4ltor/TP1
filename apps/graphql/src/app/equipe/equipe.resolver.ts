@@ -1,41 +1,51 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import {
   EquipeCreateDto,
   EquipeDto, EquipeResetDto,
   EquipeUpdateDto
 } from "../../../../../libs/common/resource/equipe/src/lib/equipe.dto";
-import {EquipeEntity} from "../../../../rest-api/src/app/equipes/entities/equipe.entity";
 import {EquipesService} from "../../../../rest-api/src/app/equipes/equipes.service";
+import {EquipeCreateType, EquipeType, EquipeUpdateType, RemoveType} from "./equipe.type";
 
-@Resolver(() => EquipeEntity)
+@Resolver(() => EquipeType)
 export class EquipeResolver {
-  constructor(private readonly equipeService: EquipesService) {}
+  constructor(private equipeService: EquipesService) {}
 
-  @Mutation(() => EquipeEntity)
-  createEquipe(
-    @Args('createEquipeInput') createEquipeInput: EquipeCreateDto) {
-    return this.equipeService.create(createEquipeInput);
-  }
 
-  @Query(() => [EquipeEntity], { name: 'equipe' })
-  findAll() {
-    return this.equipeService.findAll();
-  }
-
-  @Query(() => EquipeEntity, { name: 'equipe' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => EquipeType)
+  equipe(@Args('id') id: string): Promise<EquipeDto> {
     return this.equipeService.findOne(id);
   }
 
-  @Mutation(() => Equipe)
-  updateEquipe(
-    @Args('updateEquipeInput') updateEquipeInput: UpdateEquipeInput
-  ) {
-    return this.equipeService.update(updateEquipeInput.id, updateEquipeInput);
+  @Query(() => [EquipeType])
+  equipes() {
+    return this.equipeService.findAll();
   }
 
-  @Mutation(() => Equipe)
-  removeEquipe(@Args('id', { type: () => Int }) id: number) {
-    return this.equipeService.remove(id);
+  @Mutation(() => EquipeType)
+  createEquipe(@Args({name: 'equipe', type: () => EquipeCreateType}) equipe: EquipeCreateDto
+  ): Promise<EquipeDto> {
+    return this.equipeService.create(equipe);
+  }
+
+  @Mutation(() => EquipeType)
+  updateEquipe(
+    @Args({ name: 'equipe', type: () => EquipeUpdateType })
+      equipe: EquipeUpdateDto
+  ): Promise<EquipeDto> {
+    return this.equipeService.update(equipe.id, equipe);
+  }
+
+  @Mutation(() => RemoveType)
+  deleteEquipe(@Args('id') id: string): Promise<RemoveType> {
+    return this.equipeService.remove(id).then(() => {
+      return {
+        ok: 'true',
+      };
+    });
   }
 }
+
+
+
+

@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { MatchResolver } from './match.resolver';
-import {EquipesService} from "../../../../rest-api/src/app/equipes/equipes.service";
+
+import {MatchesModule} from "../../../../rest-api/src/app/matches/matches.module";
+import {MatchResolver} from "./match.resolver";
 
 @Module({
-  providers: [MatchResolver, EquipesService],
+  imports: [MatchesModule],
+  providers: [MatchResolver],
 })
 export class MatchModule {}

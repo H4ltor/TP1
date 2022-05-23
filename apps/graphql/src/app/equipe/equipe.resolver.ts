@@ -5,7 +5,7 @@ import {
   EquipeUpdateDto
 } from "../../../../../libs/common/resource/equipe/src/lib/equipe.dto";
 import {EquipesService} from "../../../../rest-api/src/app/equipes/equipes.service";
-import {EquipeCreateType, EquipeType, EquipeUpdateType, RemoveType} from "./equipe.type";
+import {EquipeCreateType, EquipeRemoveType, EquipeType, EquipeUpdateType} from "./equipe.type";
 
 @Resolver(() => EquipeType)
 export class EquipeResolver {
@@ -36,8 +36,8 @@ export class EquipeResolver {
     return this.equipeService.update(equipe.id, equipe);
   }
 
-  @Mutation(() => RemoveType)
-  deleteEquipe(@Args('id') id: string): Promise<RemoveType> {
+  @Mutation(() => EquipeRemoveType)
+  deleteEquipe(@Args('id') id: string): Promise<EquipeRemoveType> {
     return this.equipeService.remove(id).then(() => {
       return {
         ok: 'true',

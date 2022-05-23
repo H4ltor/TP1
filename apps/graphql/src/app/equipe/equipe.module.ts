@@ -4,6 +4,6 @@ import {EquipesService} from "../../../../rest-api/src/app/equipes/equipes.servi
 import {EquipesModule} from "../../../../rest-api/src/app/equipes/equipes.module";
 @Module({
   imports: [EquipesModule],
-  //providers: [EquipeResolver],
+  providers: [EquipeResolver],
 })
 export class EquipeModule {}

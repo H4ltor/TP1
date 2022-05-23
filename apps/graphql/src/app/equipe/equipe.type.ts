@@ -25,7 +25,7 @@ export class EquipeCreateType extends OmitType(EquipeType, ['id'], InputType) im
 export class EquipeUpdateType extends IntersectionType(PickType(EquipeType, ['id']), PartialType(EquipeCreateType), InputType) {}
 
 @ObjectType()
-export class RemoveType {
+export class EquipeRemoveType {
   @Field() ok: string;
 }
 
